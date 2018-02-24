@@ -1,0 +1,1 @@
+# StrongQA-test-assignment
