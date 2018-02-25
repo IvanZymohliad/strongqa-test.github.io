@@ -45,9 +45,9 @@ html {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1224px) {
     .container {
-        max-width: 1140px;
+        max-width: 1200px;
     }
 }
 
@@ -931,7 +931,7 @@ html {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1224px) {
     .col-xl {
         -ms-flex-preferred-size: 0;
         flex-basis: 0;
@@ -2047,4 +2047,3 @@ html {
         align-self: stretch !important;
     }
 }
-/*# sourceMappingURL=bootstrap-grid.css.map */

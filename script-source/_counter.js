@@ -1,5 +1,3 @@
-// get countdown minutes in format of "hh:mm:ss" from data attribute in html
-var countdownTimerTimeHumanable  = document.getElementById('countdown').getAttribute('data-countdown-time');
 
 // check if we have first visit time written to Cookies
 if (!Cookies.get('first-visit-time')) {
@@ -7,14 +5,23 @@ if (!Cookies.get('first-visit-time')) {
 }
 
 var firstVisitTime = Cookies.get('first-visit-time');
-var countdownTimerTime = Date.parse('1970-01-01T' + countdownTimerTimeHumanable + 'Z');
+var countdownTimerTime = Date.parse('1970-01-01T' + document.getElementById('countdown').getAttribute('data-countdown-time') + 'Z');
 var countdownDateTime = +firstVisitTime + +countdownTimerTime;
 
 var targetHours = document.getElementById("hours");
 var targetMinutes = document.getElementById("minutes");
 var targetSeconds = document.getElementById("seconds");
 
-function deleteButton() {
+var prevHour = 0;
+var prevMinute = 0;
+var prevSecond = 0;
+
+if (Date.now() >= countdownDateTime) {
+    endCounter();
+}
+
+function endCounter() {
+    targetSeconds.classList.remove('active');
     document.getElementById('start-button').remove();
 }
 
@@ -23,7 +30,7 @@ var counter = setInterval(function () {
 
     var now = Date.now();
 
-    if (now <= countdownDateTime) {
+    if (now < countdownDateTime) {
 
     // Find the remaining milliseconds between now an the count down date
         var remainingMilliseconds = countdownDateTime - now;
@@ -33,21 +40,34 @@ var counter = setInterval(function () {
         var minutes = Math.floor((remainingMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((remainingMilliseconds % (1000 * 60)) / 1000);
 
-    // Display the result in the elements, add "0" before the number if it less than "10"
-        targetHours.innerHTML = hours > 9 ? hours : '0' + hours;
-        targetMinutes.innerHTML = minutes > 9 ? minutes : '0' + minutes;
-        targetSeconds.innerHTML = seconds > 9 ? seconds : '0' + seconds;
+
+        function printNumber(time, targetElement, prevTime) {
+            if (time > 0) {
+                targetElement.classList.add('active');
+            }
+            if (prevTime !== time) {
+                targetElement.innerHTML = time > 9 ? time : '0' + time;
+            }
+            if (prevTime == time && time < 1) {
+                targetElement.classList.remove('active');
+            }
+            return time;
+        }
+
+        prevHour = printNumber(hours, targetHours, prevHour);
+        prevMinute = printNumber(minutes, targetMinutes, prevMinute);
+        prevSecond = printNumber(seconds, targetSeconds, prevSecond);
 
     // If the count down is finished, delete the button
         if (remainingMilliseconds < 0) {
             clearInterval(counter);
-            deleteButton();
+            endCounter();
         }
 
     } else {
 
     // If the count down time is already passed, delete the button
         clearInterval(counter);
-        deleteButton();
+        endCounter();
     }
 }, 1000);
