@@ -1,21 +1,28 @@
 .countdown
+  position: relative
   overflow: hidden
   margin-bottom: 20px
+  display: inline-block
+  left: 50%
+  transform: translatex(-50%)
 
   &__item
     float: left
-    margin-right: 20px
+    margin-right: 10px
+
+    &:last-child
+      margin-right: 0
 
   &__number
     display: block
     position: relative
-    width: 96px
-    height: 96px
+    width: 86px
+    height: 86px
     border-radius: 2px
     border-bottom: 2px solid white
     overflow: hidden
     text-align: center
-    line-height: 96px
+    line-height: 86px
     font-size: 32px
     color: white
     margin-bottom: 10px
@@ -29,8 +36,27 @@
       opacity: 0.1
       background-color: white
 
+    &.empty
+      color: rgba(white, .3)
+
   &__label
     font-size: 14px
     text-align: left
     color: white
     display: block
+
+@media screen and (min-width: 400px)
+  .countdown
+    &__item
+      margin-right: 20px
+
+    &__number
+      width: 96px
+      height: 96px
+      line-height: 96px
+      font-size: 32px
+
+@media screen and (min-width: 992px)
+  .countdown
+    left: 0
+    transform: translatex(0)

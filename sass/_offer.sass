@@ -3,23 +3,32 @@
   padding-bottom: 60px
 
   &__content
-    padding-top: 130px
+    padding-top: 15px
+
+  h3
+    text-align: center
 
   &__text
     color: white
     padding: 30px 0
     display: block
     letter-spacing: 1.3px
+    text-align: justify
 
   &__img
+    text-align: center
+
     img,
     svg
-      max-width: 100%
-      margin-top: -120px
+      max-width: 400px
+      margin-top: -70px
 
   &__btn
     padding-right: 140px
     margin: 10px 0
+    position: relative
+    left: 50%
+    transform: translatex(-50%)
 
     svg
       width: 34px
@@ -35,3 +44,31 @@
     @include haf
       path
         fill: $blue
+
+@media screen and (min-width: 992px)
+  .offer
+    &__content
+      padding-top: 130px
+
+    h3
+      text-align: left
+
+    &__img
+      img,
+      svg
+        margin-top: 100px
+        max-width: 100%
+
+    &__text
+      text-align: left
+
+    &__btn
+      left: 0
+      transform: translatex(0)
+
+@media screen and (min-width: 1224px)
+  .offer
+    &__img
+      img,
+      svg
+        margin-top: -140px
